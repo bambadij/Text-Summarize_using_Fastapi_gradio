@@ -67,11 +67,11 @@ Below is a preview showcasing some features of the FastAPI:
 <div style="display: flex; align-items: center;">
     <div style="flex: 33.33%; text-align: center;">
         <p>FastAPI Top</p>
-             <img src="/text_summarize-main/image/fastinput.PNG" alt="Middle" width="90%"/>
+             <img src="https://github.com/bambadij/Text-Summarize_using_Fastapi_gradio/blob/main/image/fastapi.PNG" alt="Middle" width="90%"/>
     </div>
     <div style="flex: 33.33%; text-align: center;">
         <p>FastAPI Input</p>
-             <img src="/text_summarize-main/image/output.PNG" alt="Top" width="90%"/>
+             <img src="https://github.com/bambadij/Text-Summarize_using_Fastapi_gradio/blob/main/image/output.PNG" alt="Top" width="90%"/>
         </div>
     <div style="flex: 33.33%; text-align: center;">
         <p>GRADIO Preview</p>
