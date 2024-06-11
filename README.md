@@ -75,7 +75,7 @@ Below is a preview showcasing some features of the FastAPI:
         </div>
     <div style="flex: 33.33%; text-align: center;">
         <p>GRADIO Preview</p>
-        <img src="/text_summarize-main/image/gradio.PNG" alt="Middle" width="90%"/>
+        <img src="https://github.com/bambadij/Text-Summarize_using_Fastapi_gradio/blob/main/image/gradio.PNG" alt="Middle" width="90%"/>
         </div>
 </div>
 
