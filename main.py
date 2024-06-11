@@ -6,7 +6,7 @@ import uvicorn
 import logging
 
 #Additional information
-
+ 
 Informations = """ 
 -text : Texte à resumé
 
