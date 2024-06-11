@@ -49,7 +49,7 @@ The two long command-lines have the same structure. They pipe multiple commands 
           uvicorn src.main:app --reload  -->
 
 
-  - Rendez-vous sur votre navigateur à l'adresse suivante, pour explorer la documentation de l'API :
+  - Go to your browser at the following address, to explore the API's documentation :
         
       http://127.0.0.1:8000/docs
 
@@ -57,7 +57,7 @@ The two long command-lines have the same structure. They pipe multiple commands 
     -App 
         python app.py
 
-    -Rendez-vous sur votre navigateur à l'adresse suivante, pour explorer l'interface :
+    -Go to your browser at the following address, to explore the API's documentation :
         http://127.0.0.1:7860/
 
 ## FastAPI  and Gradio Preview
