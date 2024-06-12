@@ -64,6 +64,24 @@ async def summary_text_bart(input:TextSummary):
     
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Could not summarize the input text.")
+    
+@app.post("/image_to_text")
+async def image_to_text(file:UploadFile):
+    "Televerser une image"
+    try:
+        content =await file.read()
+        image =Image.open(io.BytesIO(content))
+        resultat_legend =generated_text(image)
+        result_on_translate=translation_pieline(resultat_legend[0]['generated_text'])
+        
+        extract_text = result_on_translate[0]['translation_text']
+        return {"text-generate":extract_text}
+    except ValueError as e:
+        logger.error(f"valueError:{e}")
+        return {"error ER":str(e)}
+
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Could not work.")
 
 if __name__ == "__main__":
     uvicorn.run("main:app",host="0.0.0.0",port=8000,reload=True)
