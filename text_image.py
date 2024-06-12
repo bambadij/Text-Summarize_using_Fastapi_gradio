@@ -41,7 +41,7 @@ with gr.Blocks() as iface:
     #create a sum                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       bit bouton
     submit_btn =gr.Button("Soumettre")
 
-    output =gr.Textbox(label="Resultat")
+    output =gr.Textbox(label="Resultat") 
 
     def update_inputs(mode_select):
         if mode_select =="Summary":
