@@ -1,9 +1,13 @@
 #load package
 from transformers import pipeline
-from fastapi import FastAPI,HTTPException,status
+from fastapi import FastAPI,HTTPException,status,UploadFile
 from pydantic import BaseModel
 import uvicorn
 import logging
+from PIL import Image  # Import PIL for image processing
+import io  # Import io for handling byte streams
+
+
 
 #Additional information
  
@@ -25,10 +29,11 @@ app =FastAPI(
 logging.basicConfig(level=logging.INFO)
 logger =logging.getLogger(__name__)
 summarize =pipeline('summarization', model="facebook/bart-large-cnn")
+generated_text = pipeline("image-to-text", model="Salesforce/blip-image-captioning-large") 
+translation_pieline =pipeline("translation_en_to_fr",model="Helsinki-NLP/opus-mt-en-fr")
 
 class TextSummary(BaseModel):
     text:str
-
 
 #ENDPOINT
 
@@ -59,7 +64,10 @@ async def summary_text_bart(input:TextSummary):
     
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Could not summarize the input text.")
-    
 
 if __name__ == "__main__":
     uvicorn.run("main:app",host="0.0.0.0",port=8000,reload=True)
+
+
+
+

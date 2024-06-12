@@ -8,3 +8,4 @@ pytest
 scikit-learn
 fastapi[all]
 uvicorn
+sentencepiece==0.2.0
