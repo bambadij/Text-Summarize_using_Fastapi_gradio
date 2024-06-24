@@ -6,6 +6,8 @@ import uvicorn
 import logging
 from PIL import Image  # Import PIL for image processing
 import io  # Import io for handling byte streams
+from io import BytesIO
+from pytesseract import image_to_string 
 
 
 
@@ -46,7 +48,7 @@ async def home():
 async def summary_text_bart(input:TextSummary):
     "add text to summarize"
     try:
-        summary = summarize(input.text,max_length=50,min_length=30,do_sample=False)
+        summary = summarize(input.text,do_sample=False)
         summary_text =summary[0].get('summary_text')
         print(f"[iNFO] Input data as text:\n{summary_text}")
         logger.info(f"[INFO] input data:{input.text}")
@@ -83,6 +85,20 @@ async def image_to_text(file:UploadFile):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Could not work.")
 
+
+@app.post("/convert/to_text")
+async def extract_text_with_pytesseract(file:UploadFile):
+    
+    image_list = [list(data.values())[0] for data in file]
+    image_content = []
+    
+    for index, image_bytes in enumerate(image_list):
+        
+        image = Image.open(BytesIO(image_bytes))
+        raw_text = str(image_to_string(image))
+        image_content.append(raw_text)
+    
+    return "\n".join(image_content)
 if __name__ == "__main__":
     uvicorn.run("main:app",host="0.0.0.0",port=8000,reload=True)
 

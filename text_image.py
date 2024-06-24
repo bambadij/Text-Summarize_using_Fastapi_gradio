@@ -5,10 +5,12 @@ summarize =pipeline('summarization',model="facebook/bart-large-cnn")
 generated_text = pipeline("image-to-text", model="Salesforce/blip-image-captioning-large") 
 translation_pieline =pipeline("translation_en_to_fr",model="Helsinki-NLP/opus-mt-en-fr")
 #function resume
+
+
 def summarize_text(text):
     if text.strip() == "":
         return "Veuillez entrer un texte"
-    summary =summarize(text,max_length=50,min_length=50,do_sample=False)
+    summary =summarize(text,do_sample=False)
     summary_text =summary[0].get('summary_text')
     return summary_text
 

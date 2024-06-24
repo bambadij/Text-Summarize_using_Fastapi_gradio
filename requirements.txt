@@ -9,3 +9,5 @@ scikit-learn
 fastapi[all]
 uvicorn
 sentencepiece==0.2.0
+PyMuPDF==1.24.5
+pytesseract==0.3.10
