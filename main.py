@@ -1,11 +1,12 @@
 #load package
 from transformers import pipeline
-from fastapi import FastAPI,HTTPException,status,UploadFile
+from fastapi import FastAPI,HTTPException,status,UploadFile,File
 from pydantic import BaseModel
 import uvicorn
 import logging
-
-
+from PIL import Image
+import pytesseract
+from io import BytesIO
 
 #Additional information
  
@@ -75,24 +76,19 @@ async def summary_text_bart(input:TextSummary):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Could not summarize the input text.")
     
-# @app.post("/image_to_text")
-# async def image_to_text(file:UploadFile):
-#     "Televerser une image"
-#     try:
-#         content =await file.read()
-#         image =Image.open(io.BytesIO(content))
-#         resultat_legend =generated_text(image)
-#         result_on_translate=translation_pieline(resultat_legend[0]['generated_text'])
-        
-#         extract_text = result_on_translate[0]['translation_text']
-#         return {"text-generate":extract_text}
-#     except ValueError as e:
-#         logger.error(f"valueError:{e}")
-#         return {"error ER":str(e)}
-
-#     except Exception as e:
-#         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Could not work.")
-
+@app.post("/upload-image/")
+async def upload_image(image: UploadFile = File(...)):
+    contents = await image.read()
+    try:
+        image_open = Image.open(BytesIO(contents))
+        raw_text = pytesseract.image_to_string(image_open,lang='fra')
+        summary = summarize(raw_text,do_sample=False)
+        summary_text =summary[0].get('summary_text')
+        return {
+                # "text": raw_text,
+                "summary":summary_text}
+    except Exception as e:
+        return {"error": str(e)}
 if __name__ == "__main__":
     uvicorn.run("main:app",host="0.0.0.0",port=8000,reload=True)
 
